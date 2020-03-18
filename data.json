@@ -1,0 +1,57 @@
+{
+  "members": [
+    {
+      "avatar_url": "https://google.com.br",
+      "name": "dsadas",
+      "email": "jeansouz4@gmail.com",
+      "birth": 816393600000,
+      "gender": "M",
+      "blood": "O-",
+      "weight": "50",
+      "height": "50",
+      "id": 3
+    },
+    {
+      "avatar_url": "https://google.com.br",
+      "name": "Jean Flavio de Souza",
+      "email": "teste@teste.com",
+      "birth": 794707200000,
+      "gender": "M",
+      "blood": "A+",
+      "weight": "50",
+      "height": "50",
+      "id": 4
+    },
+    {
+      "avatar_url": "http://google.com.",
+      "name": "Testad aoijdoaisjdoisajdcoaisj",
+      "email": "jeansouz4@gmail.com",
+      "birth": 816393600000,
+      "gender": "M",
+      "blood": "A+",
+      "weight": "50",
+      "height": "50",
+      "id": 5
+    }
+  ],
+  "instructors": [
+    {
+      "id": 2,
+      "avatar_url": "https://images.unsplash.com/photo-1558980394-4c7c9299fe96?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "name": "Fulano da Silva",
+      "birth": 678499200000,
+      "gender": "M",
+      "services": "Musculação, Natação, Box",
+      "created_at": 1582567273292
+    },
+    {
+      "id": 3,
+      "avatar_url": "https://images.unsplash.com/photo-1583331989229-9cc35b3e3423?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80",
+      "name": "Batman de Souza",
+      "birth": 816393600000,
+      "gender": "M",
+      "services": "box, natação",
+      "created_at": 1582573271437
+    }
+  ]
+}
