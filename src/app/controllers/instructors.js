@@ -1,20 +1,20 @@
-const fs = require('fs')
-const data = require('../data.json')
 const { age, date } = require('../utils')
 
-exports.index = function(req, res) {
-    return res.render("instructors/index", { instructors : data.instructors })
+const index = function(req, res) {
+
 }
+module.exports = {
+    index(req, res){
+        
+        return res.render("instructors/index", { instructors : data.instructors })
+    },
+    create(req, res){
 
+        return res.render('instructors/create')
 
+    },
+    post(req, res){
 
-exports.create = function(req, res) {
-    return res.render('instructors/create')
-}
-
-// CREATE
-
-exports.post = function(req, res) {
     // req.query
     // req.body
     const keys = Object.keys(req.body) //constrói um objeto
@@ -50,11 +50,10 @@ exports.post = function(req, res) {
     })
 
     //return res.send(req.body)
-}
 
-//SHOW
-exports.show = function(req, res) {
-    // req.query.id
+    },
+    show(req, res){
+          // req.query.id
     // req.body - pega os dados do corpo do formulário
     // re.params.id = /:id/:member
     const { id } = req.params // retirando do req.params fazendo que ele seja uma variavel
@@ -74,12 +73,9 @@ exports.show = function(req, res) {
     }
 
     return res.render("instructors/show", { instructor })
-}
-
-// EDIT
-exports.edit = function(req, res) {
-    
-    // req.query.id
+    },
+    edit(req, res){
+         // req.query.id
     // req.body - pega os dados do corpo do formulário
     // re.params.id = /:id/:member
     const { id } = req.params // retirando do req.params fazendo que ele seja uma variavel
@@ -96,6 +92,39 @@ exports.edit = function(req, res) {
     }
 
     return res.render('instructors/edit', { instructor })
+
+    },
+    put(req, res){
+
+    },
+    delete(req, res){
+
+    },
+}
+
+
+exports.index = function(req, res) {
+}
+
+exports.create = function(req, res) {
+    
+}
+
+// CREATE
+
+exports.post = function(req, res) {
+  
+}
+
+//SHOW
+exports.show = function(req, res) {
+  
+}
+
+// EDIT
+exports.edit = function(req, res) {
+    
+   
 }
 
 //PUT 
