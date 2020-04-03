@@ -1,5 +1,4 @@
 const { age, date } = require('../../lib/utils')
-const db = require('../../config/db')
 const Instructor = require('../models/Instructor')
 
 module.exports = {
@@ -13,34 +12,6 @@ module.exports = {
     create(req, res) {
 
         return res.render('instructors/create')
-
-        const query = `
-            INSERT INTO instructors (
-                name,
-                avatar_url,
-                gender,
-                services,
-                birth,
-                created_at
-            ) VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING id
-        `  
-
-        const values = [
-            req.body.name,
-            req.body.avatar_url,
-            req.body.gender,
-            req.body.services,
-            date(req.body.birth).iso,
-            date(Date.now()).iso
-        ]
-
-        db.query(query, values, function(err, results){
-            if(err) return res.send("Database Error!")
-
-            return res.redirect(`/instructors/${results.row[0].id }`)
-        })
-
     },
     post(req, res) {
 
@@ -53,11 +24,24 @@ module.exports = {
             if (req.body[key] == "")
                 return res.send('please, fill al fields!')
         }
+
+        Instructor.create(req.body, function(instructor){
+            return res.redirect(`/instructors/${instructor.id}`)
+        })
         //return res.send(req.body)
 
     },
     show(req, res) {
+        Instructor.find(req.params.id, function(instructor){
+            if(!instructor) return res.send("Instructor not found!")
 
+            instructor.age = age(instructor.birth)
+            instructor.services = instructor.services.split(",")
+
+            instructor.created_at = date(instructor.created_at).format
+
+            return res.render("instructors/show", { instructor })
+        })
         return 
     },
     edit(req, res) {
