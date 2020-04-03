@@ -4,10 +4,10 @@ const Instructor = require('../models/Instructor')
 module.exports = {
     index(req, res) {
 
-        Instructor.all(function(instructors){
+        Instructor.all(function (instructors) {
             return res.render("instructors/index", { instructors })
         })
-        
+
     },
     create(req, res) {
 
@@ -25,15 +25,15 @@ module.exports = {
                 return res.send('please, fill al fields!')
         }
 
-        Instructor.create(req.body, function(instructor){
+        Instructor.create(req.body, function (instructor) {
             return res.redirect(`/instructors/${instructor.id}`)
         })
         //return res.send(req.body)
 
     },
     show(req, res) {
-        Instructor.find(req.params.id, function(instructor){
-            if(!instructor) return res.send("Instructor not found!")
+        Instructor.find(req.params.id, function (instructor) {
+            if (!instructor) return res.send("Instructor not found!")
 
             instructor.age = age(instructor.birth)
             instructor.services = instructor.services.split(",")
@@ -42,23 +42,29 @@ module.exports = {
 
             return res.render("instructors/show", { instructor })
         })
-        return 
     },
     edit(req, res) {
+        Instructor.find(req.params.id, function (instructor) {
+            if (!instructor) return res.send("Instructor not found!")
 
-        return
+            instructor.birth = date(instructor.birth).iso
 
+
+            return res.render("instructors/edit", { instructor })
+        })
     },
     put(req, res) {
         const keys = Object.keys(req.body)
 
-        for(key of keys) {
+        for (key of keys) {
             if (req.body[key] == "") {
                 return res.send('Please, fill all fields!')
             }
         }
 
-        return
+        Instructor.update(req.body, function() {
+            return res.redirect(`/instructors/${req.body.id}`)
+        })
 
     },
     delete(req, res) {
