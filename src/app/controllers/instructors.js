@@ -1,27 +1,18 @@
 const { age, date } = require('../../lib/utils')
 const db = require('../../config/db')
+const Instructor = require('../models/Instructor')
 
 module.exports = {
     index(req, res) {
 
-        return res.render("instructors/index")
+        Instructor.all(function(instructors){
+            return res.render("instructors/index", { instructors })
+        })
+        
     },
     create(req, res) {
 
         return res.render('instructors/create')
-
-    },
-    post(req, res) {
-
-        // req.query
-        // req.body
-        const keys = Object.keys(req.body) //constrói um objeto
-
-        for (key of keys) {
-            // req.body.avatar_url == ""
-            if (req.body[key] == "")
-                return res.send('please, fill al fields!')
-        }
 
         const query = `
             INSERT INTO instructors (
@@ -49,9 +40,19 @@ module.exports = {
 
             return res.redirect(`/instructors/${results.row[0].id }`)
         })
- 
-    
 
+    },
+    post(req, res) {
+
+        // req.query
+        // req.body
+        const keys = Object.keys(req.body) //constrói um objeto
+
+        for (key of keys) {
+            // req.body.avatar_url == ""
+            if (req.body[key] == "")
+                return res.send('please, fill al fields!')
+        }
         //return res.send(req.body)
 
     },
