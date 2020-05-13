@@ -112,30 +112,32 @@ module.exports = {
             filterQuery = "",
             totalQuery = `(
                 SELECT count(*) FROM instructors
-            ) AS total,`
+            ) AS total`
         
-
         if ( filter ) {
+
             filterQuery = `
-            WHERE instructors.name ILIKE '%${filter}%'
-            OR instructors.services ILIKE '%${filter}%'  
+                WHERE instructors.name ILIKE '%${filter}%'
+                OR instructors.services ILIKE '%${filter}%'
             `
 
             totalQuery = `(
                 SELECT count(*) FROM instructors
-                ${filterQuery}
-            ) as total`
+                ${filterQuery}   
+            )AS total`
+
         }
 
         query = `
-        SELECT instructors.*, ${totalQuery}, count(members) AS total_students
-        FROM instructors
-        LEFT JOIN members ON (instructors.id = members.instructors_id)
-        ${filterQuery}
-        GROUP BY instructors.id LIMIT $1 OFFSET $2
+            SELECT instructors.*, ${totalQuery}, count(members) AS total_students
+            FROM instructors
+            LEFT JOIN members ON (instructors.id = members.instructor_id)
+            ${filterQuery}
+            GROUP BY instructors.id LIMIT $1 OFFSET $2 
         `
+        
         db.query(query, [limit, offset], function(err, results){
-            if (err) throw 'Database Error!'
+            if(err) throw `Database Error!  ${err}`
 
             callback(results.rows)
         })

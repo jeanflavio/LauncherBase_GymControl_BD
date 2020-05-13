@@ -48,4 +48,12 @@ const pages = paginate(page, total)
 
 console.log(pages)
 
+let elements = ""
+
+for (let page of pages) {
+    elements += `<a href="#">${page}</a>`
+}
+
+pagination.innerHTML = elements
+
 
